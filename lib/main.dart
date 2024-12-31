@@ -2,6 +2,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+ import 'package:maps/app/data/colors.dart';
 import 'package:maps/app/data/getx_pages.dart';
 import 'package:maps/app/data/globale_controller.dart';
 import 'package:maps/app/data/routes.dart';
@@ -11,7 +12,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await LocalStorageService.init();
-  Get.put(GlobalController(),permanent: true);
+  Get.put(GlobalController(), permanent: true);
   // loc screen Orientation
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
@@ -24,7 +25,7 @@ void main() async {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-   @override
+  @override
   Widget build(BuildContext context) {
     ScreenUtil.init(
       context,
@@ -35,17 +36,9 @@ class MyApp extends StatelessWidget {
       builder: (BuildContext context, Widget? child) {
         return GetMaterialApp(
           theme: ThemeData.light(useMaterial3: true).copyWith(
-            cardTheme: CardTheme(
-              surfaceTintColor: Colors.white,
-              elevation: 0.2,
-              color: Colors.white,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(8.sp),
-              ),
-            ),
-            textTheme: ThemeData.light()
-                .textTheme
-                .apply(fontFamily: 'app', fontSizeFactor: 1),
+            scaffoldBackgroundColor: AppColors.background,
+            textTheme: ThemeData.light().textTheme.apply(
+                fontFamily: "Roboto", fontSizeFactor: 1),
           ),
           builder: (context, widget) {
             final MediaQueryData data = MediaQuery.of(context);

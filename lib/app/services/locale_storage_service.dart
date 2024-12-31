@@ -1,5 +1,9 @@
+import 'dart:convert';
+
 import 'package:get_storage/get_storage.dart';
+import 'package:maps/app/data/models/task_model.dart';
 import 'package:maps/app/data/routes.dart';
+
 class LocalStorageService {
   LocalStorageService._();
 
@@ -9,10 +13,8 @@ class LocalStorageService {
     return _instance;
   }
 
-  // GetStorage instance
   static final GetStorage _storage = GetStorage(AppRoutes.appName);
 
-  // Method to write data
   static Future<void> write(String key, dynamic value) async {
     await _storage.write(key, value);
   }
@@ -29,5 +31,18 @@ class LocalStorageService {
     }
   }
 
-
+  static Future<List<TaskModel>> getTasks() async {
+    if (_storage.hasData('tasks')) {
+      String tasksJson = await _storage.read('tasks');
+       List<dynamic> taskList = jsonDecode(tasksJson);
+      return taskList.map((task) => TaskModel.fromJson(task)).toList();
+    }
+    return [];
+  }
+  static Future<void> writeTask(TaskModel task) async {
+     List<TaskModel> tasks = await getTasks();
+     tasks.add(task);
+     String tasksJson = jsonEncode(tasks.map((t) => t.toJson()).toList());
+    await _storage.write('tasks', tasksJson);
+  }
 }
