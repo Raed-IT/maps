@@ -31,7 +31,10 @@ class HomeScreen extends GetView<HomeScreenController> {
             ],
           ),
         ),
-        onPressed: () => Get.toNamed(AppRoutes.addTaskScreen),
+        onPressed: () async{
+          await Get.toNamed(AppRoutes.addTaskScreen);
+          controller.getFreshData();
+        },
       ),
       body: SizedBox(
         child: Column(
@@ -51,8 +54,7 @@ class HomeScreen extends GetView<HomeScreenController> {
                               reGetData: () => controller.getFreshData(),
                               tasks: controller.tasks,
                               updateStatus: (TaskModel task) {
-                                Logger().w("sd0");
-                                controller.updateStatus(task);
+                                 controller.updateStatus(task);
                               },
                               deleteTask: (TaskModel task) {
                                 controller.deleteTask(task,context);
