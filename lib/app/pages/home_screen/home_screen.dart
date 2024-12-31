@@ -37,22 +37,31 @@ class HomeScreen extends GetView<HomeScreenController> {
         child: Column(
           children: [
             AppBarComponent(),
-            AdsComponent(),
-            Obx(
-              () => controller.load.value
-                  ?const  Center(
-                      child: CircularProgressIndicator(),
-                    )
-                  : TasksListComponent(
-                      tasks: controller.tasks,
-                      updateStatus: (TaskModel task) {
-                        Logger().w("sd0");
-                        controller.updateStatus(task);
-                       },
-                      deleteTask: (TaskModel task) {
-                        controller.deleteTask(task);
-                      },
+
+            Expanded(
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    const AdsComponent(),
+                    Obx(
+                      () => controller.load.value
+                          ? const Center(
+                              child: CircularProgressIndicator(),
+                            )
+                          : TasksListComponent(
+                              tasks: controller.tasks,
+                              updateStatus: (TaskModel task) {
+                                Logger().w("sd0");
+                                controller.updateStatus(task);
+                              },
+                              deleteTask: (TaskModel task) {
+                                controller.deleteTask(task);
+                              },
+                            ),
                     ),
+                  ],
+                ),
+              ),
             )
           ],
         ),

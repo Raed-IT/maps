@@ -1,11 +1,10 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
- import 'package:maps/app/data/colors.dart';
+import 'package:maps/app/data/colors.dart';
 import 'package:maps/app/pages/components/ui/buttons/primary_button.dart';
 import 'package:maps/app/pages/components/ui/fields/text_field.dart';
- import 'package:maps/app/pages/tsks_screens/edit_task_screen/edit_task_screen_controller.dart';
+import 'package:maps/app/pages/tsks_screens/edit_task_screen/edit_task_screen_controller.dart';
 
 class EditTaskScreen extends GetView<EditTaskScreenController> {
   const EditTaskScreen({super.key});
@@ -17,9 +16,11 @@ class EditTaskScreen extends GetView<EditTaskScreenController> {
         iconTheme: const IconThemeData(
           color: AppColors.card,
         ),
-        title: const Text(
-          "Add New Task ",
-          style: TextStyle(
+        title: Text(
+          "Edit New Task ${controller.task.name}",
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
+          style: const TextStyle(
             color: AppColors.card,
             shadows: [
               Shadow(
@@ -41,7 +42,8 @@ class EditTaskScreen extends GetView<EditTaskScreenController> {
               TextFieldComponent(
                 label: "Task Name * ",
                 controller: controller.tasNameController,
-                validator: (data)=>data!.isEmpty?"Task Name Required":null,
+                validator: (data) =>
+                    data!.isEmpty ? "Task Name Required" : null,
               ),
               14.verticalSpace,
               TextFieldComponent(
@@ -50,7 +52,7 @@ class EditTaskScreen extends GetView<EditTaskScreenController> {
                 isMultiLine: true,
               ),
               Spacer(),
-              PrimaryButton(label: "save",onPressed: ()=>controller.save())
+              PrimaryButton(label: "save", onPressed: () => controller.save())
             ],
           ),
         ),

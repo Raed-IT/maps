@@ -22,12 +22,10 @@ class HomeScreenController extends GetxController {
   }
 
   void updateStatus(TaskModel task) async {
-    Logger().w(task.status);
-    task.status = task.status == TaskStatusEnum.completed
+     task.status = task.status == TaskStatusEnum.completed
         ? TaskStatusEnum.schedule
         : TaskStatusEnum.completed;
-    Logger().w(task.status);
-    await TaskService.updateTask(task);
+     await TaskService.updateTask(task);
     getFreshData();
   }
 

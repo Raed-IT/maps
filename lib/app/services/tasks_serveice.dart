@@ -50,7 +50,7 @@ class TaskService {
 
     for (int i = 0; i < tasks.length; i++) {
       if (tasks[i].id == updatedTask.id) {
-        tasks[i] = updatedTask; // Update task with new data
+        tasks[i] = updatedTask;
         break;
       }
     }
