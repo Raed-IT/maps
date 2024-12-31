@@ -17,7 +17,7 @@ class EditTaskScreen extends GetView<EditTaskScreenController> {
           color: AppColors.card,
         ),
         title: Text(
-          "Edit New Task ${controller.task.name}",
+          "Edit New Task ${controller.currentTask.name}",
           maxLines: 1,
           overflow: TextOverflow.ellipsis,
           style: const TextStyle(
