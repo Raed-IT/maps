@@ -1,8 +1,9 @@
 import 'dart:convert';
 import 'package:logger/logger.dart';
- import 'package:maps/app/data/models/task_model.dart';
+import 'package:maps/app/data/models/task_model.dart';
 import 'package:maps/app/services/locale_storage_service.dart';
 import 'package:maps/app/data/enums/task_status_enum.dart';
+
 class TaskService {
   TaskService._();
 
@@ -18,7 +19,7 @@ class TaskService {
     if (tasksJson.isNotEmpty) {
       List<dynamic> jsonData = jsonDecode(tasksJson);
       List<TaskModel> tasks = jsonData.map((item) {
-        var jsonTask=jsonDecode(item);
+        var jsonTask = jsonDecode(item);
         return TaskModel(
             status: '${jsonTask['status']}'.toTaskStatus(),
             id: jsonTask['id'],
@@ -54,7 +55,17 @@ class TaskService {
         break;
       }
     }
-    String tasksJson = jsonEncode(tasks.map((t) => t.toJson().toString()).toList());
+    Logger().w(updatedTask.toJson());
+    String tasksJson =
+        jsonEncode(tasks.map((t) => t.toJson().toString()).toList());
+    await LocalStorageService.write('tasks', tasksJson);
+  }
+
+  static Future<void> deleteTask(String taskId) async {
+    List<TaskModel> tasks = await getTasks();
+    tasks.removeWhere((task) => task.id == taskId);
+    String tasksJson =
+        jsonEncode(tasks.map((t) => t.toJson().toString()).toList());
     await LocalStorageService.write('tasks', tasksJson);
   }
 }

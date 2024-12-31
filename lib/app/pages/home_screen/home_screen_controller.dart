@@ -1,8 +1,10 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:logger/web.dart';
 import 'package:maps/app/data/enums/task_status_enum.dart';
 import 'package:maps/app/data/models/task_model.dart';
+import 'package:maps/app/pages/components/tasks/delete_dialog.dart';
 import 'package:maps/app/services/tasks_serveice.dart';
 
 class HomeScreenController extends GetxController {
@@ -22,12 +24,21 @@ class HomeScreenController extends GetxController {
   }
 
   void updateStatus(TaskModel task) async {
-     task.status = task.status == TaskStatusEnum.completed
+    task.status = task.status == TaskStatusEnum.completed
         ? TaskStatusEnum.schedule
         : TaskStatusEnum.completed;
-     await TaskService.updateTask(task);
+    await TaskService.updateTask(task);
     getFreshData();
   }
 
-  void deleteTask(TaskModel task) {}
+  void deleteTask(TaskModel task, BuildContext context) async {
+    showDeleteTaskDialog(
+        context: context,
+        task: task,
+        onDelete: () async {
+          await TaskService.deleteTask("${task.id}");
+          getFreshData();
+          Get.back();
+        });
+  }
 }

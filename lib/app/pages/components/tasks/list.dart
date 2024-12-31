@@ -6,12 +6,14 @@ class TasksListComponent extends StatelessWidget {
   final List<TaskModel> tasks;
   final void Function(TaskModel task) updateStatus;
   final void Function(TaskModel task) deleteTask;
+  final void Function() reGetData;
 
   const TasksListComponent(
       {super.key,
       required this.tasks,
       required this.updateStatus,
-      required this.deleteTask});
+      required this.deleteTask,
+      required this.reGetData});
 
   @override
   Widget build(BuildContext context) {
@@ -19,6 +21,7 @@ class TasksListComponent extends StatelessWidget {
       children: tasks
           .map((task) => TaskCard(
                 task: task,
+        reGetData:reGetData,
                 deleteTask: deleteTask,
                 updateStatus: updateStatus,
               ))

@@ -18,7 +18,7 @@ class HomeScreen extends GetView<HomeScreenController> {
       floatingActionButton: FloatingActionButton(
         backgroundColor: AppColors.primary,
         shape: CircleBorder(),
-        child: Center(
+        child: const Center(
           child: Icon(
             Icons.add,
             color: AppColors.card,
@@ -37,7 +37,6 @@ class HomeScreen extends GetView<HomeScreenController> {
         child: Column(
           children: [
             AppBarComponent(),
-
             Expanded(
               child: SingleChildScrollView(
                 child: Column(
@@ -49,13 +48,14 @@ class HomeScreen extends GetView<HomeScreenController> {
                               child: CircularProgressIndicator(),
                             )
                           : TasksListComponent(
+                              reGetData: () => controller.getFreshData(),
                               tasks: controller.tasks,
                               updateStatus: (TaskModel task) {
                                 Logger().w("sd0");
                                 controller.updateStatus(task);
                               },
                               deleteTask: (TaskModel task) {
-                                controller.deleteTask(task);
+                                controller.deleteTask(task,context);
                               },
                             ),
                     ),

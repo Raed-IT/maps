@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -12,12 +14,14 @@ class TaskCard extends StatelessWidget {
   final TaskModel task;
   final void Function(TaskModel task) updateStatus;
   final void Function(TaskModel task) deleteTask;
+  final void Function() reGetData;
 
   const TaskCard(
       {super.key,
       required this.task,
       required this.updateStatus,
-      required this.deleteTask});
+      required this.deleteTask,
+      required this.reGetData});
 
   @override
   Widget build(BuildContext context) {
@@ -72,8 +76,11 @@ class TaskCard extends StatelessWidget {
                 5.horizontalSpace,
                 buildButton(
                     label: "Edit",
-                    onClick: () => Get.toNamed(AppRoutes.editTaskScreen,
-                        arguments: {"task": task})),
+                    onClick: () async{
+                        await Get.toNamed(AppRoutes.editTaskScreen,
+                          arguments: {"task": task});
+                        reGetData();
+                    }),
                 19.horizontalSpace,
               ],
             )

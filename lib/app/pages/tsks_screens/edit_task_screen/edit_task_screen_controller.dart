@@ -23,11 +23,12 @@ class EditTaskScreenController extends GetxController {
   void save() async {
     if (formKey.currentState!.validate()) {
       TaskModel task = TaskModel(
-          id: const Uuid().v1(),
-          info: tasDescriptionController.text,
-          status: TaskStatusEnum.schedule,
-          name: tasNameController.text);
-         await TaskService.updateTask(task);
+        id: const Uuid().v1(),
+        info: tasDescriptionController.text,
+        status: TaskStatusEnum.schedule,
+        name: tasNameController.text,
+      );
+      await TaskService.updateTask(task);
       Get.back();
     } else {}
   }
