@@ -4,4 +4,5 @@ class AppColors {
   static const Color primary = Color.fromRGBO(53, 171, 134, 1);
   static const Color card = Color.fromRGBO(255, 255, 255, 1);
   static const Color background = Color.fromRGBO(243, 243, 243, 1);
+  static const Color divider = Color.fromRGBO(203, 203, 203, 1);
 }

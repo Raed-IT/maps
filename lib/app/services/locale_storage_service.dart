@@ -31,18 +31,10 @@ class LocalStorageService {
     }
   }
 
-  static Future<List<TaskModel>> getTasks() async {
-    if (_storage.hasData('tasks')) {
-      String tasksJson = await _storage.read('tasks');
-       List<dynamic> taskList = jsonDecode(tasksJson);
-      return taskList.map((task) => TaskModel.fromJson(task)).toList();
+  static Future  remove(String key) async {
+    if (_storage.hasData(key)) {
+        await _storage.remove(key);
     }
-    return [];
   }
-  static Future<void> writeTask(TaskModel task) async {
-     List<TaskModel> tasks = await getTasks();
-     tasks.add(task);
-     String tasksJson = jsonEncode(tasks.map((t) => t.toJson()).toList());
-    await _storage.write('tasks', tasksJson);
-  }
+
 }

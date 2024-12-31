@@ -37,6 +37,9 @@ class MyApp extends StatelessWidget {
         return GetMaterialApp(
           theme: ThemeData.light(useMaterial3: true).copyWith(
             scaffoldBackgroundColor: AppColors.background,
+            appBarTheme: AppBarTheme(
+              backgroundColor: AppColors.primary
+            ),
             textTheme: ThemeData.light().textTheme.apply(
                 fontFamily: "Roboto", fontSizeFactor: 1),
           ),

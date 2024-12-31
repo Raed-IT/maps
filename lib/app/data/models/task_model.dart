@@ -2,25 +2,27 @@ import 'package:maps/app/data/enums/task_status_enum.dart';
 
 class TaskModel {
   String? id;
-  String? title;
+  String? name;
   String? info;
   TaskStatusEnum? status;
 
-  TaskModel({this.id, this.title, this.info, this.status});
+  TaskModel({this.id, this.name, this.info, this.status});
 
   TaskModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
-    title = json['title'];
+    name = json['name'];
     info = json['info'];
-    status = json['status'];
+    status =TaskStatusEnum.values.firstWhere(
+          (e) => e.toString() == 'TaskStatusEnum.${json['status']}',
+    );
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['id'] = id;
-    data['title'] = title;
-    data['info'] = info;
-    data['status'] = status;
-    return data;
+    return {
+      "\"id\"": "\"${id}\"",
+      "\"name\"": "\"${name}\"",
+      "\"info\"": "\"${info}\"",
+      "\"status\"": "\"${status.toString().split('.').last}\"",
+    };
   }
 }
