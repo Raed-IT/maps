@@ -1,9 +1,8 @@
 import 'dart:convert';
 import 'package:logger/logger.dart';
-import 'package:maps/app/data/enums/task_status_enum.dart';
-import 'package:maps/app/data/models/task_model.dart';
+ import 'package:maps/app/data/models/task_model.dart';
 import 'package:maps/app/services/locale_storage_service.dart';
-
+import 'package:maps/app/data/enums/task_status_enum.dart';
 class TaskService {
   TaskService._();
 
@@ -18,9 +17,15 @@ class TaskService {
     if (tasksJson.isNotEmpty) {
       List<dynamic> jsonData = jsonDecode(tasksJson);
       List<TaskModel> tasks = jsonData.map((item) {
-          return TaskModel(status: TaskStatusEnum.completed, id: jsonDecode(item)['id'] );
+        var jsonTask=jsonDecode(item);
+        return TaskModel(
+            status: '${jsonTask['status']}'.toTaskStatus(),
+            id: jsonTask['id'],
+            name: jsonTask['name'],
+            info: jsonTask['info']);
       }).toList();
-       return tasks;
+      Logger().w(tasks);
+      return tasks;
     }
     return [];
   }
@@ -28,7 +33,7 @@ class TaskService {
   static Future<void> writeTask(TaskModel task) async {
     try {
       List<TaskModel> tasks = await getTasks();
-       tasks.add(task);
+      tasks.add(task);
 
       String tasksJson =
           jsonEncode(tasks.map((t) => t.toJson().toString()).toList());

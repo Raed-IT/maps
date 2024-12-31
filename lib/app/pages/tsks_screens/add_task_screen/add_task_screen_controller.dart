@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-import 'package:logger/logger.dart';
-import 'package:maps/app/data/enums/task_status_enum.dart';
+ import 'package:maps/app/data/enums/task_status_enum.dart';
 import 'package:maps/app/data/models/task_model.dart';
 import 'package:maps/app/services/tasks_serveice.dart';
 import 'package:uuid/uuid.dart';
