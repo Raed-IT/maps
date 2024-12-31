@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:logger/logger.dart';
 import 'package:maps/app/data/colors.dart';
+import 'package:maps/app/data/models/task_model.dart';
 import 'package:maps/app/data/routes.dart';
 import 'package:maps/app/pages/components/tasks/list.dart';
 import 'package:maps/app/pages/home_screen/componsnts/ads.dart';
@@ -36,11 +38,22 @@ class HomeScreen extends GetView<HomeScreenController> {
           children: [
             AppBarComponent(),
             AdsComponent(),
-            Obx(() => controller.load.value
-                ? Center(
-                    child: CircularProgressIndicator(),
-                  )
-                : TasksListComponent(tasks: controller.tasks))
+            Obx(
+              () => controller.load.value
+                  ?const  Center(
+                      child: CircularProgressIndicator(),
+                    )
+                  : TasksListComponent(
+                      tasks: controller.tasks,
+                      updateStatus: (TaskModel task) {
+                        Logger().w("sd0");
+                        controller.updateStatus(task);
+                       },
+                      deleteTask: (TaskModel task) {
+                        controller.deleteTask(task);
+                      },
+                    ),
+            )
           ],
         ),
       ),

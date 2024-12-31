@@ -13,6 +13,7 @@ class TaskService {
   }
 
   static Future<List<TaskModel>> getTasks() async {
+    // await LocalStorageService.remove('tasks');
     String tasksJson = await LocalStorageService.read('tasks');
     if (tasksJson.isNotEmpty) {
       List<dynamic> jsonData = jsonDecode(tasksJson);
@@ -53,7 +54,7 @@ class TaskService {
         break;
       }
     }
-    String tasksJson = jsonEncode(tasks.map((t) => t.toJson()).toList());
+    String tasksJson = jsonEncode(tasks.map((t) => t.toJson().toString()).toList());
     await LocalStorageService.write('tasks', tasksJson);
   }
 }

@@ -4,12 +4,25 @@ import 'package:maps/app/pages/components/tasks/card.dart';
 
 class TasksListComponent extends StatelessWidget {
   final List<TaskModel> tasks;
-  const TasksListComponent({super.key, required this.tasks});
+  final void Function(TaskModel task) updateStatus;
+  final void Function(TaskModel task) deleteTask;
+
+  const TasksListComponent(
+      {super.key,
+      required this.tasks,
+      required this.updateStatus,
+      required this.deleteTask});
 
   @override
   Widget build(BuildContext context) {
-     return Column(
-      children:tasks.map((task) => TaskCard(task: task,)).toList(),
+    return Column(
+      children: tasks
+          .map((task) => TaskCard(
+                task: task,
+                deleteTask: deleteTask,
+                updateStatus: updateStatus,
+              ))
+          .toList(),
     );
   }
 }
