@@ -50,16 +50,14 @@ class TaskService {
     List<TaskModel> tasks = await getTasks();
 
     for (int i = 0; i < tasks.length; i++) {
-      Logger().w(tasks[i].id == updatedTask.id);
-      if (tasks[i].id == updatedTask.id) {
+       if (tasks[i].id == updatedTask.id) {
         tasks[i] = updatedTask;
         break;
       }
     }
-    Logger().w(tasks.map((e) => e.name));
+    Logger().w(tasks.map((e) => e.info));
 
-    Logger().w(updatedTask.toJson());
-    String tasksJson =
+     String tasksJson =
         jsonEncode(tasks.map((t) => t.toJson().toString()).toList());
     await LocalStorageService.write('tasks', tasksJson);
   }

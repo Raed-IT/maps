@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
- import 'package:maps/app/data/enums/task_status_enum.dart';
+import 'package:maps/app/data/enums/task_status_enum.dart';
 import 'package:maps/app/data/models/task_model.dart';
 import 'package:maps/app/services/tasks_serveice.dart';
 
@@ -23,7 +23,7 @@ class EditTaskScreenController extends GetxController {
       TaskModel task = TaskModel(
         id: "${currentTask.id}",
         info: tasDescriptionController.text,
-        status: TaskStatusEnum.schedule,
+        status: currentTask.status,
         name: tasNameController.text,
       );
       await TaskService.updateTask(task);
